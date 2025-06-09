@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zadej přezdívku</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      width: 250px;
+      margin-top: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Zadej přezdívku</h2>
+    <input type="text" id="nickname" placeholder="např. Pepa123" />
+    <br>
+    <button onclick="goToPayment()">Pokračovat na platbu</button>
+  </div>
+
+  <script>
+    function goToPayment() {
+      const nick = document.getElementById('nickname').value.trim();
+      if (!nick) {
+        alert("Zadej prosím přezdívku.");
+        return;
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const base = urlParams.get("base");
+
+      if (!base) {
+        alert("Chyba: chybí cílový odkaz ComGate.");
+        return;
+      }
+
+      const finalUrl = base + "&label=" + encodeURIComponent(nick);
+      window.location.href = finalUrl;
+    }
+  </script>
+</body>
+</html>
